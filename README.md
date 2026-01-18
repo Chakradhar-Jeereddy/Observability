@@ -179,8 +179,9 @@ capacity exhausted.
 9. rate(apiserver_request_total(code=
 
 ```
-```
+
 10. etcd
+
 | Metric                                      | What it measures                            | Histogram / Percentile | PromQL Example                                                                                            | Explanation / Why it matters                                                    | Suggested Alert Threshold    |
 | ------------------------------------------- | ------------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------- |
 | `etcd_disk_wal_fsync_duration_seconds`      | Time to fsync WAL (write-ahead log) to disk | p95                    | `histogram_quantile(0.95, sum(rate(etcd_disk_wal_fsync_duration_seconds_bucket[5m])) by (le))`            | Measures how long it takes to persist WAL updates; high latency → slower writes | p95 > 0.5s                   |
@@ -190,7 +191,7 @@ capacity exhausted.
 | `etcd_server_proposals_committed_total`     | Number of proposals committed               | Counter / rate         | `rate(etcd_server_proposals_committed_total[5m])`                                                         | Measures throughput of etcd; sudden drop → possible failure                     | Sudden drop to 0             |
 | `etcd_server_has_leader`                    | Whether node has leader                     | Gauge                  | `etcd_server_has_leader == 0`                                                                             | Node without leader cannot commit writes                                        | == 0 triggers critical alert |
 
-```
+
 # High backend commit latency
 alert: EtcdCommitHighLatency
 expr: histogram_quantile(0.99, sum(rate(etcd_disk_backend_commit_duration_seconds_bucket[5m])) by (le)) > 1
