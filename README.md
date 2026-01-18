@@ -60,3 +60,48 @@ K8s API → kube-state ┘
 - ***monitoring-prometheus-node-exporter:** Collects the events from nodes, its a daemonset runs on each node.
 - ***prometheus-monitoring-kube-prometheus-prometheus:** Statefull set continoulsy scrape metrics (ensures no metrics are lost) and stores it in TSDB (Time services database).
 
+Testing the metrics
+==
+kubectl apply -f crash.yaml
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crash
+  labels:
+    run: crash
+spec:
+  restartPolicy: Never
+  containers:
+    - name: crash
+      image: busybox
+      command: ["/bin/sh", "-c", "exit 1"]
+```
+- Query promethus
+  - kube_pod_container_status_restarts_total{namespace="monitoring",pod="crash"}
+  - Set time to 1 min
+
+
+
+| Function   | Metric type | Purpose |
+|-----------|------------|---------|
+| rate()    | Counter    | Per-second speed |
+| increase()| Counter    | Total events over time |
+| sum()     | Any        | Aggregate multiple series |
+| avg()     | Gauge      | Typical (average) value |
+| Buckets   | Histogram  | Percentiles (p95, p99) |
+
+
+1. rate → how fast
+2. increase → how many
+3. sum → all together
+4. avg → typical
+5. buckets → tail latency
+
+If you want, I can also give you:
+
+a one-page PromQL cheat sheet
+
+wrong vs right PromQL examples
+
+interview traps & common mistakes
