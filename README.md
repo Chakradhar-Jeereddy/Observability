@@ -53,10 +53,10 @@ K8s API → kube-state ┘
                            └─> Grafana dashboards
 ```
 
-***alertmanager-monitoring-kube-prometheus-alertmanager-0:** Statefulset to ensure no alerts are lost (2 pods, peristent storage and deos deduplication, grouping and send notifications)
-***monitoring-grafana-5f75f76f9b-lgrrq:** Deployment for visualization, if down dashboard wont be available, promethus continues to collect metrics.
-***monitoring-kube-prometheus-operator:** Manages the whole stack. Changes to any configuration will not apply if its down, and will sync once its up.
-***monitoring-kube-state-metrics:** Collects the kube state events and converts them to metrics and exposes under /metrics.
-***monitoring-prometheus-node-exporter:** Collects the events from nodes, its a daemonset runs on each node.
-***prometheus-monitoring-kube-prometheus-prometheus:** Statefull set continoulsy scrape metrics (ensures no metrics are lost) and stores it in TSDB (Time services database).
+- ***alertmanager-monitoring-kube-prometheus-alertmanager-0:** Statefulset to ensure no alerts are lost (2 pods, peristent storage and deos deduplication, grouping and send notifications)
+- ***monitoring-grafana-5f75f76f9b-lgrrq:** Deployment for visualization, if down dashboard wont be available, promethus continues to collect metrics.
+- ***monitoring-kube-prometheus-operator:** Manages the whole stack. Changes to any configuration will not apply if its down, and will sync once its up.
+- ***monitoring-kube-state-metrics:** Collects the kube state events and converts them to metrics and exposes under /metrics.
+- ***monitoring-prometheus-node-exporter:** Collects the events from nodes, its a daemonset runs on each node.
+- ***prometheus-monitoring-kube-prometheus-prometheus:** Statefull set continoulsy scrape metrics (ensures no metrics are lost) and stores it in TSDB (Time services database).
 
