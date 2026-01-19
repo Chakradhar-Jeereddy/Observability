@@ -1,4 +1,15 @@
 # Observability
+
+Installation
+==
+https://github.com/iam-veeramalla/observability-zero-to-hero/blob/main/day-2/readme.md
+```
+Enable ports in EC2 security groups
+nohup kubectl port-forward service/prometheus-operated -n monitoring 9090:9090 --address 0.0.0.0 &
+nohup kubectl port-forward service/monitoring-grafana -n monitoring 8080:80 --address 0.0.0.0 &
+nohup kubectl port-forward service/alertmanager-operated -n monitoring 9093:9093 --address 0.0.0.0 &
+```
+
 - Used for understanding state of an:
   -  application
   -  infra
