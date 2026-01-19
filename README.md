@@ -187,9 +187,9 @@ Per volume, returns one if its in pending state
 storage class issue
 capacity exhausted.
 ```
-9. rate(apiserver_request_total(code=
-
+9. histogram_quantile(0.95, sum(rate(apiserver_request_duration_seconds_bucket[5m])) by (le))
 ```
+This calculates the 95th percentile of Kubernetes API request durations.
 ```
 
 10. etcd
